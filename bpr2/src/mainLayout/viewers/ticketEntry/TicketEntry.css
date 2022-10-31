@@ -1,6 +1,7 @@
 .parent {
     display: flex;
     justify-content: center;
-    height: 500px;
-    align-items: center;
+    height: 65vh;
+    align-items: flex-end;
+
 }

@@ -1,10 +1,65 @@
-.header {
+/* .header {
     line-height: 5;
     background-color: black;
     color: white;
     text-align: center;
+}*/
+p,
+h1,
+h3 {
+    color: #FF01FF;
 }
 
 .content {
-    /* background-color: whitesmoke; */
+    height: 100vh;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(backround.png);
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+    background: #2B2F39;
+    border: 4px solid #FF01FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+}
+
+.answerButton {
+    background: #2B2F39;
+    border: 4px solid #FF01FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    color: #FF01FF;
+}
+
+.ant-form-large .ant-form-item-label>label {
+    color: #FF01FF;
+}
+
+.project-logo {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 128px;
+    line-height: 156px;
+    text-align: center;
+    color: #FF01FF;
+}
+
+.project-name {
+    font-family: 'Nova Flat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    text-align: center;
+    letter-spacing: 0.275em;
+    text-transform: uppercase;
+
+    color: #ECEAE1;
 }

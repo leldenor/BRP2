@@ -1,0 +1,15 @@
+.manager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ant-list-item {
+    color: #FF01FF;
+}
+
+.ant-form-item-label>label {
+    color: #FF01FF;
+}

@@ -1,41 +1,79 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Button, message } from 'antd'
 
+import { Pie } from '@ant-design/plots';
+
 import { useSelector } from "react-redux";
+import { Col, Container, Row } from 'react-bootstrap';
 const { Title } = Typography;
 
-const LastVote = ({ showState }) => {
-    const [answer, setAnswer] = useState("")
-    const { user } = useSelector((state) => state.auth);
+const LastVote = ({ showState, setLayout, answer }) => {
+    // const [answer, setAnswer] = useState("")
+    const user = useSelector((state) => state.auth);
+    console.log(user);
+    // useEffect(() => {
+    //     fetch(`https://localhost:5001/Question/${user.user._id}&&${showState.currentQuestion.id}`)
+    //         .then(res => res.ok ? res.text() : message.error("Something went wrong"))
+    //         .then(
+    //             (data) => {
+    //                 setAnswer(data)
+    //             }
+    //         ).catch(
+    //             err => console.log(err)
+    //         )
+    // }, []);
 
-    useEffect(() => {
-        fetch(`https://localhost:5001/Question/${user.ticketNumber}&&${showState.currentQuestion.id}`)
-            .then(res => res.ok ? res.text() : message.error("Something went wrong"))
-            .then(
-                (data) => {
-                    setAnswer(data)
-                }
-            ).catch(
-                err => console.log(err)
-            )
-    }, []);
+    const onResults = () => {
+        setLayout("results")
+    }
+
+    const config = {
+        appendPadding: 10,
+        data: showState.results,
+        angleField: 'value',
+        colorField: 'type',
+        radius: 0.9,
+        legend: false,
+        autoFit: true,
+        label: {
+            type: 'outer',
+            offset: '20%',
+            content: ({ percent, type }) => `${type} ${(percent * 100).toFixed(0)}%`,
+            style: {
+                fontSize: 20,
+                textAlign: 'center',
+                fill: "#ECEAE1",
+                fontFamily: "Nova Flat"
+            },
+        },
+    }
 
     return (
-        <div>
-            <h1>Last question</h1>
-            <div>
-                <h1>{showState.currentQuestion.questionShort}</h1>
-            </div>
-            <div className="button-div" style={{ justifyContent: "center" }}>
-                <Button
-                    className="answerButton"
-                    disabled={true}
-                    style={{ fontSize: "30px", width: "170px", height: "100px" }}
-                >
-                    {answer}
-                </Button>
-            </div>
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                    <div>
+                        <h1>{showState.currentQuestion.questionShort}</h1>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h3 style={{ color: "#ECEAE1", display: 'inline' }}>Your answer </h3>
+                    <h1 style={{ display: "inline", fontSize: 60, fontFamily: 'Montserrat' }}>{answer}</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Pie height={200} width={100} {...config} />
+                </Col>
+            </Row>
+            <Row style={{ paddingBottom: "5vh" }}>
+                <Col>
+                    <Button className='resultsButton' onClick={onResults} >Check the results</Button>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

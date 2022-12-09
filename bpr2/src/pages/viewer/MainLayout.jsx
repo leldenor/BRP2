@@ -18,11 +18,23 @@ const MainLayout = ({ question }) => {
     console.log(question);
 
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.auth);
 
     const navigation = useNavigate()
     console.log(isLoggedIn);
-    if (isLoggedIn)
-        navigation("/voting")
+
+
+    if (isLoggedIn) {
+        console.log(user, user.user.username);
+        if (user.user.username == 'TRICADMIN') {
+            console.log(user.user.username);
+            navigation("/manager")
+        }
+        else
+            navigation("/voting")
+    }
+
+
 
 
     const getContent = (layout, context) => {

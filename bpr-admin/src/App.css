@@ -1,0 +1,140 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.textBox {
+  box-sizing: border-box;
+  background: #2B2F39;
+  border: 4px solid #FF01FF;
+  height: fit-content;
+  padding: 20px;
+  font-family: "Montserrat";
+}
+
+.button {
+  background: #2B2F39;
+  border: 4px solid #FF01FF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  color: #FF01FF;
+  font-family: 'Nova Flat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 19px;
+  height: fit-content;
+}
+
+.ant-btn:focus,
+.ant-btn:hover {
+  color: #2B2F39;
+  border-color: #2B2F39;
+  background: #FF01FF !important;
+  border: 4px solid #FF01FF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+}
+
+.ant-btn[disabled] {
+  cursor: not-allowed !important;
+  background: #FF01FF !important;
+  color: #2B2F39 !important;
+  border: 4px solid #FF01FF !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  font-family: 'Nova Flat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 29px;
+  height: fit-content;
+}
+
+h1,
+h3,
+h5,
+.ant-modal-title {
+  color: #FF01FF;
+}
+
+p {
+  color: #ECEAE1;
+}
+
+.ant-card-type-inner .ant-card-head {
+  background: #2B2F39;
+}
+
+.ant-modal-header,
+.ant-modal-body,
+.ant-modal-footer {
+  background: #2B2F39;
+}
+
+.button-div {
+  padding: 20px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
+  background-size: auto;
+  background-attachment: fixed;
+
+  flex: 1;
+  align-self: 'stretch';
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(backround.png);
+  background-color: #2B2F39 !important;
+
+  font-family: 'Montserrat', 'Nova Flat';
+}

@@ -1,15 +1,15 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/Layout";
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import 'antd/dist/antd.min.css'
 import { HubConnectionBuilder } from "@microsoft/signalr"
 import { useState, useRef, useEffect } from "react"
-import ManagerLayout from "./pages/manager/ManagerLayout";
-import MainLayout from "./pages/viewer/MainLayout";
-import Voting from "./pages/voting";
 import { Provider } from 'react-redux'
 import store from './store'
-import Show from "./pages/manager/showrun/Show";
-import Results from "./pages/voting/results";
+import Welcome from "./Welcome";
+import './index.css'
 
 export default function App() {
   const [connection, setConnection] = useState(null)
@@ -43,79 +43,46 @@ export default function App() {
     }
   }, [connection])
 
-  const sendMessage = async (question) => {
+  // return (
 
-    try {
-      await fetch('https://localhost:5001/show/messages', {
-        method: 'POST',
-        body: JSON.stringify(question),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    }
-    catch (e) {
-      console.log('Sending message failed.', e);
-    }
-  }
+  // <BrowserRouter>
+  //   <Routes>
+  //     <Route path="/" element={<Layout />}>
+  //       <Route index element={<MainLayout question={question} />} />
+  //       <Route path="manager" element={<ManagerLayout sendMessage={sendMessage} question={question} />} />
+  //       <Route path="manager/show" element={<Show sendStateOfShow={sendStateOfShow} showState={stateOfTheShow} />} />
+  //       <Route path="voting" element={<div className='content'>
+  //         <div className='project-logo'>
+  //           <p style={{ margin: 0 }}>TRIC</p>
+  //         </div>
+  //         <div className='project-name'>
+  //           <p>THE RIGHT CHOICE</p>
+  //         </div>
+  //         <Voting question={question} showState={stateOfTheShow} />
+  //       </div>
 
-  //send what kind of button is pressed and answer is state of the show with question and timer and results depending on button pressed
-  const sendStateOfShow = async (stateOfTheShow) => {
-    console.log(stateOfTheShow);
-    try {
-      await fetch('https://localhost:5001/show/messages', {
-        method: 'POST',
-        body: JSON.stringify(stateOfTheShow),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    }
-    catch (e) {
-      console.log('Sending message failed.', e);
-    }
-  }
+  //       } />
+  //       <Route path="results" element={
+  //         <div className='content'>
+  //           <div className='project-logo'>
+  //             <p style={{ margin: 0 }}>TRIC</p>
+  //           </div>
+  //           <div className='project-name'>
+  //             <p>THE RIGHT CHOICE</p>
+  //           </div>
+  //           <Results />
+  //         </div>
 
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MainLayout question={question} />} />
-          <Route path="manager" element={<ManagerLayout sendMessage={sendMessage} question={question} />} />
-          <Route path="manager/show" element={<Show sendStateOfShow={sendStateOfShow} showState={stateOfTheShow} />} />
-          <Route path="voting" element={<div className='content'>
-            <div className='project-logo'>
-              <p style={{ margin: 0 }}>TRIC</p>
-            </div>
-            <div className='project-name'>
-              <p>THE RIGHT CHOICE</p>
-            </div>
-            <Voting question={question} showState={stateOfTheShow} />
-          </div>
-
-          } />
-          <Route path="results" element={
-            <div className='content'>
-              <div className='project-logo'>
-                <p style={{ margin: 0 }}>TRIC</p>
-              </div>
-              <div className='project-name'>
-                <p>THE RIGHT CHOICE</p>
-              </div>
-              <Results />
-            </div>
-
-          } />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  //       } />
+  //     </Route>
+  //   </Routes>
+  // </BrowserRouter>
+  // );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
-    <App />
+    <Welcome />
   </Provider>
 )

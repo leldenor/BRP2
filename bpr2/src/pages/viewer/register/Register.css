@@ -1,0 +1,22 @@
+.avatarIcons {
+    width: 50px;
+    color: #FF01FF;
+    height: 50px;
+}
+
+.radioButton {
+    width: 70px;
+    height: 65px !important;
+    padding-top: 5px;
+    margin: 10px;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    background: #2B2F39;
+    border-color: #FF01FF;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    background: #2B2F39;
+    border-color: #FF01FF;
+}

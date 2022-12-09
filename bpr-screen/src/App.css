@@ -13,6 +13,12 @@
   }
 }
 
+h1 {
+  color: #FF01FF;
+  font-size: 60px;
+  font-weight: 800;
+}
+
 body {
   text-align: center;
   background-color: black;

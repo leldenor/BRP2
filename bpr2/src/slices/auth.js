@@ -2,22 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
 import AuthService from "../services/auth.service";
+import { message } from "antd";
 
 const user = JSON.parse(localStorage.getItem("user"));
-
+//look at the thunk thing
 export const register = createAsyncThunk(
     "auth/register",
     async (userr, thunkAPI) => {
         try {
             console.log(user);
-            const response = await fetch(`https://localhost:5001/User/${userr.ticketid}&&${userr.username}&&${userr.avatar}`, { method: 'POST' })
+            const response = await fetch(`https://localhost:5001/User/${userr.username}&&${userr.avatar}`, { method: 'POST' })
             console.log(response);
-            const res = await response.text()
+            const res = await response.json()
             console.log(res);
-            if (res == "Register")
-                localStorage.setItem("user", JSON.stringify(userr));
+            localStorage.setItem("user", JSON.stringify(res));
 
-            return { user: userr };
+            return { user: res };
         } catch (error) {
             const message =
                 (error.response &&
@@ -31,34 +31,32 @@ export const register = createAsyncThunk(
     }
 );
 
-export const login = createAsyncThunk(
-    "auth/login",
-    async ({ username, password }, thunkAPI) => {
-        try {
-            const data = await fetch(`https://localhost:5001/User/${username}&&${password}`)
-            const res = await data.json()
-            if (res)
-                localStorage.setItem("user", JSON.stringify({ username, password }));
-            return { user: { username, password, type: "Manager" } };
-        } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-            thunkAPI.dispatch(setMessage(message));
-            return thunkAPI.rejectWithValue();
+export const outcome = createAsyncThunk("auth/results", async (userId, thunkAPI) => {
+    try {
+        const response = await fetch(`https://localhost:5001/Question/results/${userId}`, { method: "GET" })
+        if (!res.ok) {
+            return { error: "Something went wrong" }
         }
+        const res = await response.json()
+        let localUser = user
+        localUser.result = res
+        localStorage.setItem("user", JSON.stringify(localUser))
+
+        return { result: res }
+    } catch (error) {
+        return thunkAPI.rejectWithValue()
     }
-);
+}
+)
+
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-    await AuthService.logout();
+    localStorage.removeItem("user");
+    // localStorage.removeItem("result")
 });
 
 const initialState = user
-    ? { isLoggedIn: true, user }
+    ? { isLoggedIn: true, user, }
     : { isLoggedIn: false, user: null };
 
 const authSlice = createSlice({
@@ -73,13 +71,9 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.user = null
         },
-        [login.fulfilled]: (state, action) => {
-            state.isLoggedIn = true;
-            state.user = action.payload.user;
-        },
-        [login.rejected]: (state, action) => {
-            state.isLoggedIn = false;
-            state.user = null;
+        [outcome.fulfilled]: (state, action) => {
+            state.isLoggedIn = true
+            state.user = action.payload.user
         },
         [logout.fulfilled]: (state, action) => {
             state.isLoggedIn = false;

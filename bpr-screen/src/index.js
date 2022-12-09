@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HubConnectionBuilder } from "@microsoft/signalr"
 import { useState, useRef, useEffect } from "react"
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'antd/dist/antd.min.css'
 import './index.css';
 import App from './App';
@@ -16,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:5001/hubs/show')
+      .withUrl('https://trictestbapi.azurewebsites.net/hubs/show')
       .withAutomaticReconnect()
       .build()
 

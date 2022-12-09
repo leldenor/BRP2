@@ -4,6 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import './Voting.css'
 import _ from 'lodash';
 import { useSelector } from "react-redux";
+import { Col, Container, Row } from 'react-bootstrap';
 
 const Vote = ({ showState }) => {
     const [isActive, setIsActive] = useState(true)
@@ -27,7 +28,7 @@ const Vote = ({ showState }) => {
     // }
 
     const onVote = (vote) => {
-        fetch(`https://localhost:5001/Question/${user.user.ticketid}&&${showState.currentQuestion.id}&&${vote}`, { method: 'POST' })
+        fetch(`https://localhost:5001/Question/${user.user._id}&&${showState.currentQuestion.id}&&${vote}`, { method: 'POST' })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => {
                 console.log(res)
@@ -39,40 +40,54 @@ const Vote = ({ showState }) => {
 
     if (!isActive || showState.showState != 3)
         return (
-            <div className='spin'>
-                <Spin indicator={<LoadingOutlined
-                    style={{
-                        fontSize: 100,
-                        color: "#ECEAE1"
-                    }}
-                    spin
-                />} />
-            </div>
+            <>
+                <Container>
+                    <Row>
+                        <Col style={{ paddingTop: "10vh" }}>
+                            <div className="textBox">
+                                <h2>Your vote has been accepted</h2>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </>
         )
 
 
     return (
-        <div>
-            <div className="button-div" style={{ justifyContent: "flex-start" }}>
-                <Button
-                    className="answerButton"
-                    style={{ fontSize: "30px", width: "170px", height: "100px" }}
-                    onClick={() => onVote("Yes")}>
-                    Yes
-                </Button>
-            </div>
-            <div className='question-div'>
-                <h3>{showState.currentQuestion.questionShort}</h3>
-            </div>
-            <div className="button-div" style={{ justifyContent: "flex-end" }}>
-                <Button
-                    className="answerButton"
-                    style={{ fontSize: "30px", width: "170px", height: "100px" }}
-                    onClick={() => onVote("No")}>
-                    No
-                </Button>
-            </div>
-        </div>
+        <Container style={{ marginTop: "10vh" }}>
+            <Row>
+                <Col>
+                    <div className="button-div" style={{ justifyContent: "flex-start" }}>
+                        <Button
+                            className="answerButton"
+                            style={{ fontSize: "32px", width: "200px", height: "56px" }}
+                            onClick={() => onVote("Yes")}>
+                            Yes
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className='question-div'>
+                        <h3>{showState.currentQuestion.questionShort}</h3>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div className="button-div" style={{ justifyContent: "flex-end" }}>
+                        <Button
+                            className="answerButton"
+                            style={{ fontSize: "32px", width: "200px", height: "56px" }}
+                            onClick={() => onVote("No")}>
+                            No
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

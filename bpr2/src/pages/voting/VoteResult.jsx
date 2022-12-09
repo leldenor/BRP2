@@ -2,12 +2,9 @@ import { useEffect, useState } from "react"
 import Results from "./results"
 import { message, Button, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom'
 import { Pie } from '@ant-design/plots';
 
 const VoteResult = ({ showState }) => {
-
-    const navigate = useNavigate()
 
     if (showState.results == null) {
         return (
@@ -40,21 +37,24 @@ const VoteResult = ({ showState }) => {
         angleField: 'value',
         colorField: 'type',
         radius: 0.9,
+        legend: false,
+        autoFit: true,
         label: {
-            type: 'inner',
-            offset: '-30%',
+            type: 'outer',
+            offset: '20%',
             content: ({ percent, type }) => `${type} ${(percent * 100).toFixed(0)}%`,
             style: {
-                fontSize: 30,
+                fontSize: 20,
                 textAlign: 'center',
-                color: "black",
+                fill: "#ECEAE1",
+                fontFamily: "Nova Flat"
             },
         },
-        interactions: [
-            {
-                type: 'element-active',
-            },
-        ],
+        // interactions: [
+        //     {
+        //         type: 'element-active',
+        //     },
+        // ],
         color: ({ type }) => {
             if (type == 'Yes') {
                 return '#FF01FF';
@@ -69,8 +69,8 @@ const VoteResult = ({ showState }) => {
     return (
         <div>
             <h3>{showState.currentQuestion.questionShort}</h3>
-            <Pie {...config} />
-            {showState.showState == 7 && <Button onClick={() => navigate("/results")}>Check my results</Button>}
+            <Pie height={200} width={100} {...config} />
+            {/* {showState.showState == 7 && <Button onClick={() => navigate("/results")}>Check my results</Button>} */}
         </div>
     )
 

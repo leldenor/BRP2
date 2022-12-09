@@ -22,20 +22,17 @@ const Info = ({ results, label }) => {
         angleField: 'value',
         colorField: 'type',
         radius: 0.9,
+        legend: false,
         label: {
-            type: 'inner',
-            offset: '-30%',
+            type: 'spider',
+            offset: '',
             content: ({ percent, type }) => `${type} ${(percent * 100).toFixed(0)}%`,
             style: {
                 fontSize: 30,
                 textAlign: 'center',
+                fill: '#ECEAE1'
             },
         },
-        interactions: [
-            {
-                type: 'element-active',
-            },
-        ],
         color: ({ type }) => {
             if (type == 'Yes') {
                 return '#FF01FF';

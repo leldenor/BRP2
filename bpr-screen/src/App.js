@@ -5,6 +5,7 @@ import _ from 'lodash'
 import './App.css';
 import Timer from './Timer';
 import EndShowStats from './EndShowStats';
+import Start from './Start';
 
 const showStates = {
   video: 0,
@@ -33,8 +34,7 @@ const App = ({ showState }) => {
   switch (showStateLocal.showState) {
     case showStates.video:
       return (
-        <div>
-        </div>
+        <Start />
       )
     case showStates.startShow:
       return (
@@ -79,7 +79,7 @@ const App = ({ showState }) => {
     case showStates.lastQuestionResults:
       return (
         <div>
-          <div>{showStateLocal.currentQuestion.questionLong}</div>
+          <div style={{ fontSize: "calc(10px + 2vmin)" }}>{showStateLocal.currentQuestion.questionLong}</div>
           <Info results={showStateLocal.results} label={showStateLocal.currentQuestion.questionFull} />
         </div>
       )

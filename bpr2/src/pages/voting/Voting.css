@@ -1,11 +1,26 @@
 .question-div {
     box-sizing: border-box;
 
-    margin: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
     padding: 20px;
     background: #2B2F39;
     border-bottom: 4px solid #FF01FF;
+}
+
+.resultsButton {
+    background: #2B2F39;
+    border: 2px solid #FF01FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    font-family: 'Nova Flat';
+    font-style: normal;
+    font-size: 12px;
+    height: fit-content;
+    text-align: center;
+
+    color: #ECEAE1
 }
 
 .spin {

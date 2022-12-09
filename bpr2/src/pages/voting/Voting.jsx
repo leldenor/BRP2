@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Button, Typography, message, Result, Spin } from "antd"
 import { LoadingOutlined } from '@ant-design/icons';
+import { Col, Container, Row } from 'react-bootstrap';
+import { HubConnectionBuilder } from "@microsoft/signalr"
 import './Voting.css'
 import _ from 'lodash';
 import LastVote from './LastVote';
 import Results from './results'
 import StandBy from './standBy/StandBy';
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom'
 import Vote from './Vote';
 import VoteResult from './VoteResult';
 
@@ -23,96 +24,141 @@ const showStates = {
     endShow: 8,
 }
 
-const Voting = ({ setLayout, question, showState }) => {
-    const [showStateLocal, setShowStateLocal] = useState({ showState: showStates.video })
+const Voting = ({ setLayout, context }) => {
+    const [connection, setConnection] = useState(null)
+    const [question, setQuestion] = useState({})
+    const [stateOfTheShow, setStateOfTheShow] = useState({})
+    const [lastAnswer, setLastAnswer] = useState("Yes")
+    const latestState = useRef(null)
 
-    const navigate = useNavigate()
+    latestState.current = stateOfTheShow
 
+    useEffect(() => {
+        const newConnection = new HubConnectionBuilder()
+            .withUrl('https://localhost:5001/hubs/show')
+            .withAutomaticReconnect()
+            .build()
+
+        setConnection(newConnection)
+    }, [])
+
+    useEffect(() => {
+        if (connection) {
+            connection.start()
+                .then(result => {
+                    console.log("Connected");
+
+                    connection.on('ReceiveMessage', message => {
+                        console.log(message);
+                        setStateOfTheShow(message)
+                    })
+                })
+                .catch(e => console.log("Connection failed: ", e))
+        }
+    }, [connection])
+
+    const [showStateLocal, setShowStateLocal] = useState({})
     const user = useSelector((state) => state.auth);
     console.log(user);
-    if (!user.isLoggedIn) {
-        navigate("/")
+    // if (!user.isLoggedIn) {
+    //     navigate("/")
+    // }
+
+    const getLastVote = () => {
+        console.log("log");
+        fetch(`https://localhost:5001/Question/${user.user._id}&&${3}`)
+            .then(res => res.ok ? res.json() : message.error("Something went wrong"))
+            .then(
+                (data) => {
+                    console.log(data);
+                    setLastAnswer(data)
+                }
+            ).catch(
+                err => console.log(err)
+            )
     }
 
     useEffect(() => {
-        console.log("Here", showState);
-        if (!_.isEmpty(showState)) {
+        console.log("Here", stateOfTheShow);
+        if (!_.isEmpty(stateOfTheShow)) {
             console.log("Local ", showStateLocal);
-            setShowStateLocal(showState)
+            setShowStateLocal(stateOfTheShow)
         }
 
-    }, [showState])
+    }, [stateOfTheShow])
 
-    console.log("Is", showState, showStateLocal);
+    console.log("Is", stateOfTheShow, showStateLocal);
 
-    if (showState.showState != showStates.endShow) {
+    if (stateOfTheShow.showState != showStates.endShow) {
         console.log("WWWWWW", showStateLocal.showState);
         switch (showStateLocal.showState) {
             case showStates.video:
                 return (
-                    <div className='spin'>
-                        <Spin indicator={<LoadingOutlined
-                            style={{
-                                fontSize: 100,
-                                color: "#ECEAE1"
-                            }}
-                            spin
-                        />} />
-                    </div>
+
+                    < StandBy />
                 )
             case showStates.startShow:
                 return (
-                    <div className='spin'>
-                        <Spin indicator={<LoadingOutlined
-                            style={{
-                                fontSize: 100,
-                                color: "#ECEAE1"
-                            }}
-                            spin
-                        />} />
-                    </div>
+                    <StandBy />
                 )
             case showStates.showQuestion:
                 return (
-                    <div className='spin'>
-                        <Spin indicator={<LoadingOutlined
-                            style={{
-                                fontSize: 100,
-                                color: "#ECEAE1"
-                            }}
-                            spin
-                        />} />
-                    </div>
+                    <>
+                        <Container>
+                            <Row>
+                                <Col style={{ paddingTop: "10vh" }}>
+                                    <div className="textBox">
+                                        <h2>{stateOfTheShow.currentQuestion.questionLong}</h2>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </>
                 )
             case showStates.showTheResults:
-                return (<VoteResult showState={showState} />)
+                return (<VoteResult showState={stateOfTheShow} />)
             case showStates.startVote:
-                return (<Vote showState={showState} />)
+                return (<Vote showState={stateOfTheShow} />)
             case showStates.stopVote:
                 return (
-                    <div className='spin'>
-                        <Spin indicator={<LoadingOutlined
-                            style={{
-                                fontSize: 100,
-                                color: "#ECEAE1"
-                            }}
-                            spin
-                        />} />
-                    </div>
+                    <>
+                        <Container>
+                            <Row>
+                                <Col style={{ paddingTop: "10vh" }}>
+                                    <div className="textBox">
+                                        <h2>Wait for the results</h2>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </>
                 )
             case showStates.lastQuestion:
-                return (<LastVote showState={showState} />
+                getLastVote()
+                return (<>
+                    <Container>
+                        <Row>
+                            <Col style={{ paddingTop: "10vh", paddingBottom: "5vh" }}>
+                                <div className="textBox">
+                                    <h2>{stateOfTheShow.currentQuestion.questionLong}</h2>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </>
                 )
             case showStates.lastQuestionResults:
-                return (<VoteResult showState={showState} />)
+                return (<LastVote showState={stateOfTheShow} setLayout={setLayout} answer={lastAnswer} />)
             case showStates.endShow:
-                return (<Results />)
+                return (<Results setLayout={setLayout} />)
             default:
-                return <></>
+                return (
+                    <StandBy />
+                )
         }
     }
     else
-        return <Results />
+        return <Results setLayout={setLayout} />
 
 
 

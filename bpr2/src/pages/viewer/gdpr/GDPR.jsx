@@ -13,7 +13,8 @@ const GDPR = ({ setLayout, context }) => {
         else {
             var user = {
                 username: "reject",
-                avatar: 8
+                avatar: 8,
+                gdpr: false
             }
             dispatch(register(user))
                 .unwrap()

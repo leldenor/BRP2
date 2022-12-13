@@ -28,7 +28,7 @@ const Vote = ({ showState }) => {
     // }
 
     const onVote = (vote) => {
-        fetch(`https://localhost:5001/Question/${user.user._id}&&${showState.currentQuestion.id}&&${vote}`, { method: 'POST' })
+        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}&&${showState.currentQuestion.id}&&${vote}`, { method: 'POST' })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => {
                 console.log(res)

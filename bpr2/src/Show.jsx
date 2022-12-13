@@ -11,7 +11,7 @@ const Show = () => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:5001/hubs/show')
+            .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
             .withAutomaticReconnect()
             .build()
 
@@ -34,7 +34,7 @@ const Show = () => {
 
     const sendMessage = async (user, message) => {
         try {
-            await fetch('https://localhost:5001/show/messages', {
+            await fetch('https://tricapptest.azurewebsites.net/show/messages', {
                 method: 'POST',
                 body: { user, message },
                 headers: {

@@ -19,7 +19,7 @@ const Login = ({ homePage }) => {
             .unwrap()
             .then((res) => {
                 console.log(res);
-                // homePage("home")
+                homePage("home")
 
             })
             .catch(() => {

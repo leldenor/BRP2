@@ -14,13 +14,14 @@ import reportWebVitals from './reportWebVitals';
 export default function Home() {
   const [connection, setConnection] = useState(null)
   const [stateOfShow, setStateOfTheShow] = useState({})
+  const [timer, setTimer] = useState(0)
   const latestQuestion = useRef(null)
 
   latestQuestion.current = stateOfShow
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl('https://trictestbapi.azurewebsites.net/hubs/show')
+      .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
       .withAutomaticReconnect()
       .build()
 
@@ -37,11 +38,15 @@ export default function Home() {
             console.log(message);
             setStateOfTheShow(message)
           })
+          connection.on("ReceiveTimer", res => {
+            console.log(res);
+            setTimer(res)
+          })
         })
         .catch(e => console.log("Connection failed: ", e))
     }
   }, [connection])
-  return <App showState={stateOfShow} />
+  return <App showState={stateOfShow} timer={timer} />
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

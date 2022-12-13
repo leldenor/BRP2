@@ -45,7 +45,7 @@ const ManageQuestions = ({ homePage }) => {
 
     const getData = () => {
         console.log("Now");
-        fetch('https://localhost:5001/Question').then(
+        fetch('https://tricapptest.azurewebsites.net/Question').then(
             res => res.json()
         ).then(
             data => {
@@ -68,7 +68,7 @@ const ManageQuestions = ({ homePage }) => {
             answerSubcategory: value.answerSubcategory
         }
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://localhost:5001/Question`, { method: 'PATCH', body: JSON.stringify(dataToPost), headers })
+        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'PATCH', body: JSON.stringify(dataToPost), headers })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => res.json())
             .then(
@@ -98,7 +98,7 @@ const ManageQuestions = ({ homePage }) => {
             answerSubcategory: value.answerSubcategory
         }
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://localhost:5001/Question`, { method: 'POST', body: JSON.stringify(dataToPost), headers })
+        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'POST', body: JSON.stringify(dataToPost), headers })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => res.json())
             .then(
@@ -113,22 +113,24 @@ const ManageQuestions = ({ homePage }) => {
         setIsModalOpen(false)
     }
 
-    const onDelete = (id) => {
+    const onDelete = (item) => {
         let q = _.cloneDeep(questions)
 
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://localhost:5001/Question`, { method: 'DELETE', body: id, headers })
-            .then(res => res.ok ? res : message.error("Question not removed")).then(res => {
-                message.success("Question removed")
-                _.remove(q, (x) => { return x.id === id })
-                console.log(q);
-                setQuestions(q)
+        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'DELETE', body: JSON.stringify(item), headers })
+            .then(res => {
+                if (res.ok) {
+                    message.success("Question removed")
+                    _.remove(q, item)
+                    console.log(q);
+                    setQuestions(q)
+                }
+                else {
+                    message.error("Question not removed")
+                }
             }
             )
             .catch(err => message.error(err))
-
-
-
     }
 
     const onModalOpen = (item) => {
@@ -174,7 +176,7 @@ const ManageQuestions = ({ homePage }) => {
                                     <Card
                                         className='textBox'
                                         title={<h3>{Category[item.category]}</h3>}
-                                        extra={[<Button className='button' icon={<DeleteOutlined />} onClick={() => onDelete(item.id)} />, <Button className='button' icon={<EditOutlined />} onClick={() => onModalOpen(item)} />]}
+                                        extra={[<Button className='button' icon={<DeleteOutlined />} onClick={() => onDelete(item)} />, <Button className='button' icon={<EditOutlined />} onClick={() => onModalOpen(item)} />]}
                                     >
                                         <Row>
                                             <Col>

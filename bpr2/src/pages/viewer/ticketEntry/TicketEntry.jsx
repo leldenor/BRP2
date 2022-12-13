@@ -13,7 +13,7 @@ const TicketEntry = ({ setLayout }) => {
     console.log(typeof setLayout);
     const navigation = useNavigate()
     const onFinish = async (values) => {
-        await fetch(`https://localhost:5001/User/${values.ticketNumber}`)
+        await fetch(`https://tricapptest.azurewebsites.net/User/${values.ticketNumber}`)
             .then(res => res.ok ? res.text() : message.error("Ticket not valid"))
             .then(
                 (data) => {

@@ -104,6 +104,25 @@ p {
   color: #ECEAE1;
 }
 
+.avatarIcons {
+  width: 80px;
+  color: #FF01FF;
+  height: 80px;
+}
+
+.ant-descriptions-title {
+  color: #FF01FF;
+}
+
+.ant-descriptions-bordered .ant-descriptions-view {
+  border: 4px solid #FF01FF;
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: #2B2F39;
+  color: #FF01FF;
+}
+
 .ant-card-type-inner .ant-card-head {
   background: #2B2F39;
 }

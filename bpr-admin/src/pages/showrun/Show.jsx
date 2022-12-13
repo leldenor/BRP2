@@ -23,8 +23,6 @@ const showStates = {
     lastQuestion: 6,
     lastQuestionResults: 7,
     endShow: 8,
-    timerShort: 9,
-    timerLong: 10
 }
 const Show = ({ showState, sendStateOfShow, setIsShowStarted, timer }) => {
     const [isInfo, setIsInfo] = useState(false)
@@ -47,7 +45,7 @@ const Show = ({ showState, sendStateOfShow, setIsShowStarted, timer }) => {
     const sendTimer = async (timer) => {
 
         try {
-            await fetch('https://localhost:5001/show/timer', {
+            await fetch('https://tricapptest.azurewebsites.net/show/timer', {
                 method: 'POST',
                 body: JSON.stringify(timer),
                 headers: {
@@ -192,16 +190,12 @@ const Show = ({ showState, sendStateOfShow, setIsShowStarted, timer }) => {
                 return (
                     <div>
                         <div>
-                            <Button onClick={() => setIsShowStarted(false)}>Home page</Button>
+                            <Button className="button" onClick={() => setIsShowStarted(false)}>Home page</Button>
                         </div>
                     </div>
                 )
-            case showStates.timerShort:
-                return <Timer time={30} />
-            case showStates.timerLong:
-                return <Timer time={60} />
             case -1:
-                return <StartShowLayout sendStateOfShow={sendStateOfShow} state={showStates.showQuestion} />
+                return <StartShowLayout sendStateOfShow={sendStateOfShow} state={showStates.showQuestion} sendTimer={sendTimer} />
             default:
                 return <InfoShowLayout sendStateOfShow={sendStateOfShow} state={showStates.startShow} />
         }

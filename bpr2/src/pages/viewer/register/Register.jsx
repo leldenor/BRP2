@@ -21,9 +21,9 @@ const Register = ({ setLayout, context }) => {
         console.log(values);
         setSuccessful(false)
         const user = {
-            ticketid: context,
             username: values.username,
-            avatar: avatar
+            avatar: avatar,
+            gdpr: true
         }
         dispatch(register(user))
             .unwrap()
@@ -31,7 +31,7 @@ const Register = ({ setLayout, context }) => {
                 console.log(res);
                 // if (res.ok)
                 console.log("som");
-                setLayout("voting")
+                setLayout("voting", res)
                 // else
                 //     message.error("Something is wrong")
             })
@@ -85,10 +85,10 @@ const Register = ({ setLayout, context }) => {
                     <Radio.Group onChange={changeAvatar}>
                         <Radio.Button value={0} className="radioButton"><FontAwesomeIcon icon={faMasksTheater} className="avatarIcons" /></Radio.Button>
                         <Radio.Button value={1} className="radioButton"><FontAwesomeIcon icon={faLandmarkDome} className="avatarIcons" /></Radio.Button>
-                        <Radio.Button value={4} className="radioButton"><FontAwesomeIcon icon={faCat} className="avatarIcons" /></Radio.Button>
-                        <Radio.Button value={5} className="radioButton"><FontAwesomeIcon icon={faLandmarkFlag} className="avatarIcons" /></Radio.Button>
-                        <Radio.Button value={6} className="radioButton"><FontAwesomeIcon icon={faDog} className="avatarIcons" /></Radio.Button>
-                        <Radio.Button value={7} className="radioButton"><FontAwesomeIcon icon={faDove} className="avatarIcons" /></Radio.Button>
+                        <Radio.Button value={2} className="radioButton"><FontAwesomeIcon icon={faCat} className="avatarIcons" /></Radio.Button>
+                        <Radio.Button value={3} className="radioButton"><FontAwesomeIcon icon={faLandmarkFlag} className="avatarIcons" /></Radio.Button>
+                        <Radio.Button value={4} className="radioButton"><FontAwesomeIcon icon={faDog} className="avatarIcons" /></Radio.Button>
+                        <Radio.Button value={5} className="radioButton"><FontAwesomeIcon icon={faDove} className="avatarIcons" /></Radio.Button>
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item

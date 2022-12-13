@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
+import { Statistic } from "antd";
 
-const Timer = ({ isTime }) => {
+const { Countdown } = Statistic
 
-    const [timeLeft, setTimeLeft] = useState(10)
-
-    useEffect(() => {
-        timeLeft > -1 && setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-    }, [timeLeft])
-    if (timeLeft < 0)
-        return <div style={{ fontSize: "calc(40px + 2vmin)", color: "#ECEAE1" }}>0</div>
-
-    return <div style={{ fontSize: "calc(40px + 2vmin)", color: "#ECEAE1" }}>{timeLeft}</div>
+const Timer = ({ time }) => {
+    return (
+        <>
+            <Countdown value={new Date().setSeconds(new Date().getSeconds() + time)} valueStyle={{ color: "#FF01FF", fontSize: "calc(3rem + 6vw)" }} format="ss" />
+        </>
+    )
 }
 
 export default Timer

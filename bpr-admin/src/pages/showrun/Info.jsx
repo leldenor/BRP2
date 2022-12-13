@@ -24,7 +24,7 @@ const Info = ({ results, label }) => {
     // }, [timeLeft])
 
     // if (timeLeft === -1 && results.length == 0) {
-    //     fetch(`https://localhost:5001/Question/results/${question.id}`)
+    //     fetch(`https://tricapptest.azurewebsites.net/Question/results/${question.id}`)
     //         .then(res => res.ok ? res.json() : message.error("Data not saved"))
     //         .then(res => {
     //             console.log(res)

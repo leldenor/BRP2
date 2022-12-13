@@ -10,17 +10,16 @@ import Voting from "./pages/voting";
 import logo from "./logo.png"
 import _ from 'lodash'
 import Results from "./pages/voting/results";
+import Goodbye from "./pages/voting/results/goodbye";
 
 const avatars = {
     8: (<FontAwesomeIcon icon={faUser} style={{ height: 35, width: 35, marginTop: 10 }} />),
     0: (<FontAwesomeIcon icon={faMasksTheater} style={{ height: 35, width: 35, marginTop: 10 }} />),
     1: (<FontAwesomeIcon icon={faLandmarkDome} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    2: (<FontAwesomeIcon icon={faMosquito} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    3: (<FontAwesomeIcon icon={faMicrophoneAlt} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    4: (<FontAwesomeIcon icon={faCat} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    5: (<FontAwesomeIcon icon={faLandmarkFlag} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    6: (<FontAwesomeIcon icon={faDog} style={{ height: 35, width: 35, marginTop: 10 }} />),
-    7: (<FontAwesomeIcon icon={faDove} style={{ height: 35, width: 35, marginTop: 10 }} />),
+    2: (<FontAwesomeIcon icon={faCat} style={{ height: 35, width: 35, marginTop: 10 }} />),
+    3: (<FontAwesomeIcon icon={faLandmarkFlag} style={{ height: 35, width: 35, marginTop: 10 }} />),
+    4: (<FontAwesomeIcon icon={faDog} style={{ height: 35, width: 35, marginTop: 10 }} />),
+    5: (<FontAwesomeIcon icon={faDove} style={{ height: 35, width: 35, marginTop: 10 }} />),
 }
 
 const Welcome = () => {
@@ -30,7 +29,7 @@ const Welcome = () => {
     const [isVoting, setIsVoting] = useState(false)
 
     const getContent = (layout, context) => {
-        console.log(layout);
+        console.log(layout, context);
         const content = {
             "gdpr": (<GDPR setLayout={getContent} context={context} />),
             "register": (<Register setLayout={getContent} context={context} />),
@@ -55,17 +54,17 @@ const Welcome = () => {
                 </div>
             </div>),
             "voting": (<Voting setLayout={getContent} context={context} />),
+            "results": (<Results setLayout={getContent} />),
+            "goodbye": (<Goodbye setLayout={getContent} />)
 
         }
-        if (layout == "voting")
+        if (layout == "voting") {
             setIsVoting(true)
+        }
         else
             setIsVoting(false)
 
-        if (layout == "results") {
 
-        }
-        //After register show username and avatar in other pages
         if (_.isUndefined(layout)) {
             setLayout((
                 <div className="fixed-bottom" style={{ paddingBottom: "5vh" }}>
@@ -95,8 +94,11 @@ const Welcome = () => {
 
 
     const onStart = () => {
-        if (isLoggedIn)
+        if (isLoggedIn && _.isNull(user.result)) {
             getContent("voting")
+        }
+        else if (isLoggedIn && !_.isNull(user.result))
+            getContent("results")
         else
             getContent("gdpr")
     }
@@ -126,7 +128,13 @@ const Welcome = () => {
     )
 
     const fontSize = isVoting ? 64 : 128
+    console.log(user);
+    if (isVoting && user.isLoggedIn)
+        console.log("What");
+    else
+        console.log("Someee");
 
+    console.log(!isVoting && !user.isLoggedIn, !isVoting, !user.isLoggedIn);
     return (
         <div>
             <header>
@@ -136,13 +144,7 @@ const Welcome = () => {
                             <p style={{ fontSize: fontSize, marginBottom: 0 }} className="tric">TRIC!</p>
                         </Col>
                     </Row>
-                    {!isVoting ?
-                        <Row className="text-center">
-                            <Col>
-                                <p className="rightChoice">THE RIGHT CHOICE</p>
-                            </Col>
-                        </Row>
-                        :
+                    {isVoting && user.isLoggedIn ?
                         <Row>
                             <Col style={{ display: "flex", justifyContent: "flex-end" }}>
                                 <div className="userLog">
@@ -153,6 +155,13 @@ const Welcome = () => {
                                 </div>
                             </Col>
                         </Row>
+                        :
+                        <Row className="text-center">
+                            <Col>
+                                <p className="rightChoice">THE RIGHT CHOICE</p>
+                            </Col>
+                        </Row>
+
                     }
                 </Container>
             </header>

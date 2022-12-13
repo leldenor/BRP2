@@ -35,27 +35,50 @@ const Voting = ({ setLayout, context }) => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:5001/hubs/show')
+            .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
             .withAutomaticReconnect()
             .build()
 
         setConnection(newConnection)
+        getStateOfShow()
     }, [])
 
     useEffect(() => {
         if (connection) {
             connection.start()
                 .then(result => {
-                    console.log("Connected");
+
+                    console.log("Connected ", connection, result);
 
                     connection.on('ReceiveMessage', message => {
                         console.log(message);
                         setStateOfTheShow(message)
                     })
+
                 })
                 .catch(e => console.log("Connection failed: ", e))
         }
     }, [connection])
+
+    const getStateOfShow = () => {
+        try {
+            fetch('https://tricapptest.azurewebsites.net/show', {
+                method: 'GET',
+            }).then(
+                res => res.ok ? res.json() : message.error("Something went wrong")
+            ).then(
+                res => {
+                    console.log(res);
+                    setStateOfTheShow(res)
+                }
+            ).catch(
+                err => message.error("Something went wrong")
+            )
+        }
+        catch (e) {
+            console.log('Sending message failed.', e);
+        }
+    }
 
     const [showStateLocal, setShowStateLocal] = useState({})
     const user = useSelector((state) => state.auth);
@@ -66,8 +89,8 @@ const Voting = ({ setLayout, context }) => {
 
     const getLastVote = () => {
         console.log("log");
-        fetch(`https://localhost:5001/Question/${user.user._id}&&${3}`)
-            .then(res => res.ok ? res.json() : message.error("Something went wrong"))
+        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}&&${5}`)
+            .then(res => res.ok ? res.text() : message.error("Something went wrong"))
             .then(
                 (data) => {
                     console.log(data);
@@ -90,8 +113,8 @@ const Voting = ({ setLayout, context }) => {
     console.log("Is", stateOfTheShow, showStateLocal);
 
     if (stateOfTheShow.showState != showStates.endShow) {
-        console.log("WWWWWW", showStateLocal.showState);
-        switch (showStateLocal.showState) {
+        console.log("WWWWWW", stateOfTheShow);
+        switch (stateOfTheShow.showState) {
             case showStates.video:
                 return (
 
@@ -134,7 +157,7 @@ const Voting = ({ setLayout, context }) => {
                     </>
                 )
             case showStates.lastQuestion:
-                getLastVote()
+                // getLastVote()
                 return (<>
                     <Container>
                         <Row>
@@ -197,7 +220,7 @@ const Voting = ({ setLayout, context }) => {
     }, [question])
 
     const onVote = (vote) => {
-        fetch(`https://localhost:5001/Question/${user.user.ticketid}&&${question.id}&&${vote}`, { method: 'POST' })
+        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user.ticketid}&&${question.id}&&${vote}`, { method: 'POST' })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => {
                 console.log(res)

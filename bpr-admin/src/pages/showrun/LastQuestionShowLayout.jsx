@@ -3,7 +3,7 @@ import { Button } from "antd"
 import TimerTime from "./TimerTime"
 
 
-const LastQuestionShowLayout = ({ showState, sendStateOfShow, nextState }) => {
+const LastQuestionShowLayout = ({ showState, sendStateOfShow, nextState, sendTimer }) => {
 
     return (
         <>
@@ -13,7 +13,7 @@ const LastQuestionShowLayout = ({ showState, sendStateOfShow, nextState }) => {
                         <Col md={6} >
                             <h1>Last Question</h1>
                         </Col>
-                        <TimerTime />
+                        <TimerTime sendTimer={sendTimer} />
                     </Row>
                 </Container>
             </header>

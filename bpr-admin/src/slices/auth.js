@@ -7,7 +7,7 @@ export const login = createAsyncThunk(
     "auth/login",
     async ({ username, password }, thunkAPI) => {
         try {
-            const data = await fetch(`https://localhost:5001/User/${username}&&${password}`)
+            const data = await fetch(`https://tricapptest.azurewebsites.net/User/${username}&&${password}`)
             const res = await data.json()
             if (res)
                 localStorage.setItem("user", JSON.stringify({ username, password }));

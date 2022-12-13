@@ -19,12 +19,37 @@ h1 {
   font-weight: 800;
 }
 
+.timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 body {
+
+  margin: 0;
+  height: 100vh;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
+  background-size: auto;
+  background-attachment: fixed;
+
+  flex: 1;
+  align-self: 'stretch';
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(backround.png);
+  background-color: #2B2F39 !important;
+
+
+
   text-align: center;
-  background-color: black;
-  background-image: url(glitches.png);
-  color: #FF01FF;
-  min-height: 100vh;
+  color: #ECEAE1;
+  font-weight: bolder;
   display: flex;
   flex-direction: column;
   align-items: center;

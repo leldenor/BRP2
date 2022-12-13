@@ -21,7 +21,7 @@ export default function App() {
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:5001/hubs/show')
+      .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
       .withAutomaticReconnect()
       .build()
 

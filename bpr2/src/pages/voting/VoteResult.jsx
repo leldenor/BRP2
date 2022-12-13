@@ -50,11 +50,6 @@ const VoteResult = ({ showState }) => {
                 fontFamily: "Nova Flat"
             },
         },
-        // interactions: [
-        //     {
-        //         type: 'element-active',
-        //     },
-        // ],
         color: ({ type }) => {
             if (type == 'Yes') {
                 return '#FF01FF';

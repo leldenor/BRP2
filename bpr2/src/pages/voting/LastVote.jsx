@@ -7,23 +7,24 @@ import { useSelector } from "react-redux";
 import { Col, Container, Row } from 'react-bootstrap';
 const { Title } = Typography;
 
-const LastVote = ({ showState, setLayout, answer }) => {
-    // const [answer, setAnswer] = useState("")
+const LastVote = ({ showState, setLayout }) => {
+    const [answer, setAnswer] = useState("")
     const user = useSelector((state) => state.auth);
     console.log(user);
-    // useEffect(() => {
-    //     fetch(`https://localhost:5001/Question/${user.user._id}&&${showState.currentQuestion.id}`)
-    //         .then(res => res.ok ? res.text() : message.error("Something went wrong"))
-    //         .then(
-    //             (data) => {
-    //                 setAnswer(data)
-    //             }
-    //         ).catch(
-    //             err => console.log(err)
-    //         )
-    // }, []);
+    useEffect(() => {
+        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}`)
+            .then(res => res.ok ? res.text() : message.error("Something went wrong"))
+            .then(
+                (data) => {
+                    setAnswer(data)
+                }
+            ).catch(
+                err => console.log(err)
+            )
+    }, []);
 
     const onResults = () => {
+        console.log("log");
         setLayout("results")
     }
 
@@ -46,6 +47,15 @@ const LastVote = ({ showState, setLayout, answer }) => {
                 fontFamily: "Nova Flat"
             },
         },
+        color: ({ type }) => {
+            if (type == 'Yes') {
+                return '#FF01FF';
+            }
+            return 'black';
+        },
+        style: {
+            stroke: 'black'
+        }
     }
 
     return (

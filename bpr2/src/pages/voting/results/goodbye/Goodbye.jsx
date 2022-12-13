@@ -8,10 +8,9 @@ import { Col, Container, Row } from "react-bootstrap"
 
 const Goodbye = ({ setLayout, context }) => {
     const dispatch = useDispatch();
-    console.log(typeof setLayout);
+
     const logOut = useCallback(() => {
         dispatch(logout());
-        console.log(typeof setLayout);
         setLayout("home")
     }, [dispatch]);
 
@@ -43,14 +42,6 @@ const Goodbye = ({ setLayout, context }) => {
                         <Col><Button icon={<FontAwesomeIcon icon={faLinkedin} style={{ color: "#FF01FF" }} />} style={{ color: "#ECEAE1" }} href="https://www.linkedin.com/company/humanlab-dk" target="_blank" /></Col>
                     </Row>
                     <Row>
-                        <Col>
-                            <p>We would like to hear about your experience during the show with the help of this survey. It will take around 5 minutes</p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Button className="answerButton"><a target="_blank" href="https://forms.gle/HHaeu7E3fGcdkNjH8">Survey</a></Button>
-                        </Col>
                         <Col>
                             <div className="button-div">
                                 <Button className="answerButton" onClick={logOut} >To Start</Button>

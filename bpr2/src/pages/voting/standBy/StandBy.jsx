@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react"
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { Container, Row, Col } from "react-bootstrap";
 
 const StandBy = () => {

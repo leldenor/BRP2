@@ -20,17 +20,6 @@ const VoteResult = ({ showState }) => {
         )
     }
 
-    const data = [
-        {
-            type: 'Yes',
-            value: 45,
-        },
-        {
-            type: 'No',
-            value: 55
-        }
-    ]
-    console.log("State ", showState.results, data);
     const config = {
         appendPadding: 10,
         data: showState.results,
@@ -65,7 +54,6 @@ const VoteResult = ({ showState }) => {
         <div>
             <h3>{showState.currentQuestion.questionShort}</h3>
             <Pie height={200} width={100} {...config} />
-            {/* {showState.showState == 7 && <Button onClick={() => navigate("/results")}>Check my results</Button>} */}
         </div>
     )
 

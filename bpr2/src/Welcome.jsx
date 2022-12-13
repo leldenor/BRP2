@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Button, Avatar, Image } from "antd";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMasksTheater, faMosquito, faMicrophoneAlt, faCat, faDog, faDove, faLandmarkDome, faLandmarkFlag, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faMasksTheater, faCat, faDog, faDove, faLandmarkDome, faLandmarkFlag, faUser } from '@fortawesome/free-solid-svg-icons'
 import Register from "./pages/viewer/register";
 import Voting from "./pages/voting";
 import logo from "./logo.png"
@@ -23,7 +23,6 @@ const avatars = {
 }
 
 const Welcome = () => {
-    const [isStart, setStart] = useState(true)
     const { isLoggedIn } = useSelector((state) => state.auth);
     const user = useSelector((state) => state.auth);
     const [isVoting, setIsVoting] = useState(false)
@@ -128,13 +127,7 @@ const Welcome = () => {
     )
 
     const fontSize = isVoting ? 64 : 128
-    console.log(user);
-    if (isVoting && user.isLoggedIn)
-        console.log("What");
-    else
-        console.log("Someee");
 
-    console.log(!isVoting && !user.isLoggedIn, !isVoting, !user.isLoggedIn);
     return (
         <div>
             <header>

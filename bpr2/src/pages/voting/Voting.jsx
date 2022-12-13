@@ -26,7 +26,6 @@ const showStates = {
 
 const Voting = ({ setLayout, context }) => {
     const [connection, setConnection] = useState(null)
-    const [question, setQuestion] = useState({})
     const [stateOfTheShow, setStateOfTheShow] = useState({})
     const [lastAnswer, setLastAnswer] = useState("Yes")
     const latestState = useRef(null)
@@ -48,10 +47,9 @@ const Voting = ({ setLayout, context }) => {
             connection.start()
                 .then(result => {
 
-                    console.log("Connected ", connection, result);
+                    console.log("Connected ");
 
                     connection.on('ReceiveMessage', message => {
-                        console.log(message);
                         setStateOfTheShow(message)
                     })
 
@@ -68,7 +66,6 @@ const Voting = ({ setLayout, context }) => {
                 res => res.ok ? res.json() : message.error("Something went wrong")
             ).then(
                 res => {
-                    console.log(res);
                     setStateOfTheShow(res)
                 }
             ).catch(
@@ -82,24 +79,6 @@ const Voting = ({ setLayout, context }) => {
 
     const [showStateLocal, setShowStateLocal] = useState({})
     const user = useSelector((state) => state.auth);
-    console.log(user);
-    // if (!user.isLoggedIn) {
-    //     navigate("/")
-    // }
-
-    const getLastVote = () => {
-        console.log("log");
-        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}&&${5}`)
-            .then(res => res.ok ? res.text() : message.error("Something went wrong"))
-            .then(
-                (data) => {
-                    console.log(data);
-                    setLastAnswer(data)
-                }
-            ).catch(
-                err => console.log(err)
-            )
-    }
 
     useEffect(() => {
         console.log("Here", stateOfTheShow);
@@ -110,10 +89,7 @@ const Voting = ({ setLayout, context }) => {
 
     }, [stateOfTheShow])
 
-    console.log("Is", stateOfTheShow, showStateLocal);
-
     if (stateOfTheShow.showState != showStates.endShow) {
-        console.log("WWWWWW", stateOfTheShow);
         switch (stateOfTheShow.showState) {
             case showStates.video:
                 return (
@@ -157,7 +133,6 @@ const Voting = ({ setLayout, context }) => {
                     </>
                 )
             case showStates.lastQuestion:
-                // getLastVote()
                 return (<>
                     <Container>
                         <Row>

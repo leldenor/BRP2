@@ -3,14 +3,12 @@ import _ from 'lodash'
 
 const user = JSON.parse(localStorage.getItem("user"));
 const result = JSON.parse(localStorage.getItem("result"))
-//look at the thunk thing
+
 export const register = createAsyncThunk(
     "auth/register",
     async (userr, thunkAPI) => {
         try {
-            console.log(user);
             const response = await fetch(`https://tricapptest.azurewebsites.net/User/${userr.username}&&${userr.avatar}&&${userr.gdpr}`, { method: 'POST' })
-            console.log(response);
             const res = await response.json()
             localStorage.setItem("user", JSON.stringify(res));
             return { user: res };
@@ -28,15 +26,11 @@ export const register = createAsyncThunk(
 
 export const outcome = createAsyncThunk("auth/outcome", async (userId, thunkAPI) => {
     try {
-        console.log(userId);
         const response = await fetch(`https://tricapptest.azurewebsites.net/User/outcome/${userId}`, { method: "GET" })
-        console.log(response.ok);
         if (!response.ok) {
-            console.log(!response.ok);
             return { error: "Something went wrong" }
         }
         const res = await response.json()
-        console.log(res);
         localStorage.setItem("result", JSON.stringify(res))
         return { result: res }
     } catch (error) {
@@ -50,7 +44,6 @@ export const outcome = createAsyncThunk("auth/outcome", async (userId, thunkAPI)
 export const logout = createAsyncThunk("auth/logout", async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("result")
-    // localStorage.removeItem("result")
 });
 
 const initialState = user
@@ -71,7 +64,7 @@ const authSlice = createSlice({
         },
         [outcome.fulfilled]: (state, action) => {
             state.isLoggedIn = true
-            // state.user = action.payload.user
+            state.user = action.payload.user
             state.result = action.payload.result
         },
         [logout.fulfilled]: (state, action) => {

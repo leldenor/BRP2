@@ -1,12 +1,10 @@
-import { Typography, Button, Form, Input, message, Tag, Avatar, Radio } from "antd"
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { Button, Form, Input, Radio } from "antd"
+import { useState } from "react";
+import { useDispatch } from "react-redux"
 import { register } from '../../../slices/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMasksTheater, faMosquito, faMicrophoneAlt, faCat, faDog, faDove, faLandmarkDome, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons'
-import { BugOutlined } from '@ant-design/icons'
+import { faMasksTheater, faCat, faDog, faDove, faLandmarkDome, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons'
 import "./Register.css"
-const { CheckableTag } = Tag;
 
 const Register = ({ setLayout, context }) => {
     const [avatar, setAvatar] = useState(-1)
@@ -18,7 +16,6 @@ const Register = ({ setLayout, context }) => {
 
 
     const registerUser = (values) => {
-        console.log(values);
         setSuccessful(false)
         const user = {
             username: values.username,
@@ -28,12 +25,7 @@ const Register = ({ setLayout, context }) => {
         dispatch(register(user))
             .unwrap()
             .then((res) => {
-                console.log(res);
-                // if (res.ok)
-                console.log("som");
                 setLayout("voting", res)
-                // else
-                //     message.error("Something is wrong")
             })
             .catch(() => {
                 setSuccessful(false);
@@ -53,14 +45,12 @@ const Register = ({ setLayout, context }) => {
 
     const changeAvatar = (e) => {
         setAvatar(e.target.value)
-        console.log(e);
     }
-    console.log(avatar);
+
     return (
         <div>
             <Form
                 onFinish={registerUser}
-                // onFinishFailed={onFinishFailed}
                 layout={formItemLayout}
                 size={"large"}
             >

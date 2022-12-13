@@ -1,8 +1,7 @@
-import { Button, message, Space, } from "antd"
-import { useDispatch, useSelector } from "react-redux"
+import { Button, message } from "antd"
+import { useDispatch } from "react-redux"
 import { register } from '../../../slices/auth'
 import { Container, Row, Col } from "react-bootstrap"
-//What happens when refuse is clicked
 const GDPR = ({ setLayout, context }) => {
 
     const dispatch = useDispatch()
@@ -19,12 +18,7 @@ const GDPR = ({ setLayout, context }) => {
             dispatch(register(user))
                 .unwrap()
                 .then((res) => {
-                    console.log(res);
-                    // if (res.ok)
-                    console.log("som");
                     setLayout("voting")
-                    // else
-                    //     message.error("Something is wrong")
                 })
                 .catch(() => {
                     message.error("Something went wrong")

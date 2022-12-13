@@ -6,7 +6,7 @@ import { useCallback } from "react"
 import { logout } from '../../../../slices/auth'
 import { Col, Container, Row } from "react-bootstrap"
 
-const Goodbye = ({ setLayout, context }) => {
+const Goodbye = ({ setLayout }) => {
     const dispatch = useDispatch();
 
     const logOut = useCallback(() => {

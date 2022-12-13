@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Typography, message, Result, Spin } from "antd"
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Button, message } from "antd"
 import './Voting.css'
 import _ from 'lodash';
 import { useSelector } from "react-redux";
@@ -9,29 +8,12 @@ import { Col, Container, Row } from 'react-bootstrap';
 const Vote = ({ showState }) => {
     const [isActive, setIsActive] = useState(true)
 
-    console.log(showState);
-
     const user = useSelector((state) => state.auth);
-
-    console.log(user)
-
-    const [timeLeft, setTimeLeft] = useState(10)
-
-    // useEffect(() => {
-    //     timeLeft > -1 && setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-    // }, [timeLeft])
-
-    // if (timeLeft === -1) {
-    //     setTimeout(() => {
-    //         results()
-    //     }, 5000);
-    // }
 
     const onVote = (vote) => {
         fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}&&${showState.currentQuestion.id}&&${vote}`, { method: 'POST' })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => {
-                console.log(res)
                 if (res.ok)
                     setIsActive(false)
             })

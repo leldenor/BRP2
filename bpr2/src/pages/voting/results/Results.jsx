@@ -1,4 +1,4 @@
-import { Button, Typography, message, Avatar } from "antd"
+import { Button, message, Avatar } from "antd"
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { outcome } from '../../../slices/auth'
@@ -29,7 +29,6 @@ const Results = ({ setLayout }) => {
             dispatch(outcome(user.user._id))
                 .unwrap()
                 .then((res) => {
-                    console.log(res);
                     if (res)
                         setResults(res.result)
                     else
@@ -46,9 +45,6 @@ const Results = ({ setLayout }) => {
     const endPage = () => {
         setLayout("goodbye")
     }
-
-
-    console.log(results);
 
     return (
         <>

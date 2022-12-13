@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Button, message } from 'antd'
+import { Button, message } from 'antd'
 
 import { Pie } from '@ant-design/plots';
 
 import { useSelector } from "react-redux";
 import { Col, Container, Row } from 'react-bootstrap';
-const { Title } = Typography;
 
 const LastVote = ({ showState, setLayout }) => {
     const [answer, setAnswer] = useState("")
     const user = useSelector((state) => state.auth);
-    console.log(user);
+
     useEffect(() => {
         fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}`)
             .then(res => res.ok ? res.text() : message.error("Something went wrong"))
@@ -24,7 +23,6 @@ const LastVote = ({ showState, setLayout }) => {
     }, []);
 
     const onResults = () => {
-        console.log("log");
         setLayout("results")
     }
 

@@ -36,20 +36,13 @@ const ManageQuestions = ({ homePage }) => {
 
     useEffect(() => {
         getData()
-        // console.log(response);
-        // if (!response.ok) throw response.statusText
-
-        // const questions = response.json()
-        // console.log(questions);
     }, [])
 
     const getData = () => {
-        console.log("Now");
-        fetch('https://tricapptest.azurewebsites.net/Question').then(
+        fetch('https://localhost:5001/Question').then(
             res => res.json()
         ).then(
             data => {
-                console.log(data);
                 setQuestions(data)
             }
         ).catch(
@@ -58,7 +51,6 @@ const ManageQuestions = ({ homePage }) => {
     }
 
     const handleOk = (value) => {
-        console.log(value);
         const dataToPost = {
             id: question.id,
             questionLong: value.questionLong,
@@ -68,12 +60,11 @@ const ManageQuestions = ({ homePage }) => {
             answerSubcategory: value.answerSubcategory
         }
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'PATCH', body: JSON.stringify(dataToPost), headers })
+        fetch(`https://localhost:5001/Question`, { method: 'PATCH', body: JSON.stringify(dataToPost), headers })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => res.json())
             .then(
                 data => {
-                    console.log(data);
                     message.success("Data saved")
                     setQuestions(data)
                 }
@@ -88,7 +79,6 @@ const ManageQuestions = ({ homePage }) => {
     }
 
     const onEnter = (value) => {
-        console.log(value);
         const dataToPost = {
             id: -1,
             questionLong: value.questionLong,
@@ -98,12 +88,11 @@ const ManageQuestions = ({ homePage }) => {
             answerSubcategory: value.answerSubcategory
         }
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'POST', body: JSON.stringify(dataToPost), headers })
+        fetch(`https://localhost:5001/Question`, { method: 'POST', body: JSON.stringify(dataToPost), headers })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => res.json())
             .then(
                 data => {
-                    console.log(data);
                     message.success("Data saved")
                     setQuestions(data)
                 }
@@ -117,12 +106,11 @@ const ManageQuestions = ({ homePage }) => {
         let q = _.cloneDeep(questions)
 
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://tricapptest.azurewebsites.net/Question`, { method: 'DELETE', body: JSON.stringify(item), headers })
+        fetch(`https://localhost:5001/Question`, { method: 'DELETE', body: JSON.stringify(item), headers })
             .then(res => {
                 if (res.ok) {
                     message.success("Question removed")
                     _.remove(q, item)
-                    console.log(q);
                     setQuestions(q)
                 }
                 else {
@@ -134,7 +122,6 @@ const ManageQuestions = ({ homePage }) => {
     }
 
     const onModalOpen = (item) => {
-        console.log(item);
         if (item === undefined) {
             setQuestion({})
 
@@ -148,7 +135,6 @@ const ManageQuestions = ({ homePage }) => {
 
     }
 
-    console.log("Q ", question);
     return (
         <>
             <header style={{ padding: 10 }}>

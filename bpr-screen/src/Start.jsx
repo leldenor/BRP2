@@ -18,12 +18,10 @@ const Start = () => {
             <main>
                 <Container>
                     <Row
-                    // className="pt-2 pt-md-5 w-3 px-4 px-xl-0 position-relative"
                     >
                         <Col
                             xs={{ order: 2 }}
                             md={{ size: 7, order: 1 }}
-                        // tag="aside"
                         >
                             <Card
                                 size="small"
@@ -64,8 +62,6 @@ const Start = () => {
                             xs={{ order: 1 }}
                             md={{ size: 4, offset: 1 }}
                             style={{ alignSelf: "center" }}
-                        // tag="section"
-                        // className="py-5 mb-5 py-md-0 mb-md-0"
                         >
                             <Card
                             >

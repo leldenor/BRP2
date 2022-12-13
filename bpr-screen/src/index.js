@@ -9,7 +9,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'antd/dist/antd.min.css'
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 export default function Home() {
   const [connection, setConnection] = useState(null)
@@ -21,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
+      .withUrl('https://localhost:5001/hubs/show')
       .withAutomaticReconnect()
       .build()
 
@@ -35,11 +34,9 @@ export default function Home() {
           console.log("Connected");
 
           connection.on('ReceiveMessage', message => {
-            console.log(message);
             setStateOfTheShow(message)
           })
           connection.on("ReceiveTimer", res => {
-            console.log(res);
             setTimer(res)
           })
         })

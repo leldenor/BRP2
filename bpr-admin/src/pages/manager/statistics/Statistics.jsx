@@ -31,7 +31,7 @@ const Statistics = ({ homePage, sendMessage }) => {
 
     useEffect(() => {
         console.log("Here");
-        fetch(`https://tricapptest.azurewebsites.net/Stats/dates`, { method: 'GET' })
+        fetch(`https://localhost:5001/Stats/dates`, { method: 'GET' })
             .then(res => res.ok ? res : console.log(res))
             .then(res => res.json())
             .then(
@@ -53,7 +53,7 @@ const Statistics = ({ homePage, sendMessage }) => {
     const exportData = (values) => {
         console.log(values);
         const headers = { 'Content-Type': 'application/json', Accept: 'application/json' }
-        fetch(`https://tricapptest.azurewebsites.net/Stats`, { method: 'POST', body: JSON.stringify(values.showDate), headers })
+        fetch(`https://localhost:5001/Stats`, { method: 'POST', body: JSON.stringify(values.showDate), headers })
             .then(res => res.ok ? res : console.log(res, values))
             .then(res => res.json())
             .then(

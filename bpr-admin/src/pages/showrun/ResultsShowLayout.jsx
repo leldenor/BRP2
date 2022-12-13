@@ -11,7 +11,6 @@ const ResultsShowLayout = ({ sendStateOfShow, showState }) => {
         colorField: 'type',
         radius: 0.9,
         legend: false,
-        // autoFit: true,
         label: {
             type: 'outer',
             content: ({ percent, type }) => `${type} ${(percent * 100).toFixed(0)}%`,

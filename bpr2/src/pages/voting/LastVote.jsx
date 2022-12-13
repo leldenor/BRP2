@@ -11,7 +11,7 @@ const LastVote = ({ showState, setLayout }) => {
     const user = useSelector((state) => state.auth);
 
     useEffect(() => {
-        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user._id}`)
+        fetch(`https://localhost:5001/Question/${user.user._id}`)
             .then(res => res.ok ? res.text() : message.error("Something went wrong"))
             .then(
                 (data) => {

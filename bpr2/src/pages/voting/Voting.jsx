@@ -34,7 +34,7 @@ const Voting = ({ setLayout, context }) => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://tricapptest.azurewebsites.net/hubs/show')
+            .withUrl('https://localhost:5001/hubs/show')
             .withAutomaticReconnect()
             .build()
 
@@ -60,7 +60,7 @@ const Voting = ({ setLayout, context }) => {
 
     const getStateOfShow = () => {
         try {
-            fetch('https://tricapptest.azurewebsites.net/show', {
+            fetch('https://localhost:5001/show', {
                 method: 'GET',
             }).then(
                 res => res.ok ? res.json() : message.error("Something went wrong")
@@ -195,7 +195,7 @@ const Voting = ({ setLayout, context }) => {
     }, [question])
 
     const onVote = (vote) => {
-        fetch(`https://tricapptest.azurewebsites.net/Question/${user.user.ticketid}&&${question.id}&&${vote}`, { method: 'POST' })
+        fetch(`https://localhost:5001/Question/${user.user.ticketid}&&${question.id}&&${vote}`, { method: 'POST' })
             .then(res => res.ok ? res : message.error("Data not saved"))
             .then(res => {
                 console.log(res)

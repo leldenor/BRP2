@@ -8,7 +8,7 @@ export const register = createAsyncThunk(
     "auth/register",
     async (userr, thunkAPI) => {
         try {
-            const response = await fetch(`https://tricapptest.azurewebsites.net/User/${userr.username}&&${userr.avatar}&&${userr.gdpr}`, { method: 'POST' })
+            const response = await fetch(`https://localhost:5001/User/${userr.username}&&${userr.avatar}&&${userr.gdpr}`, { method: 'POST' })
             const res = await response.json()
             localStorage.setItem("user", JSON.stringify(res));
             return { user: res };
@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
 
 export const outcome = createAsyncThunk("auth/outcome", async (userId, thunkAPI) => {
     try {
-        const response = await fetch(`https://tricapptest.azurewebsites.net/User/outcome/${userId}`, { method: "GET" })
+        const response = await fetch(`https://localhost:5001/User/outcome/${userId}`, { method: "GET" })
         if (!response.ok) {
             return { error: "Something went wrong" }
         }

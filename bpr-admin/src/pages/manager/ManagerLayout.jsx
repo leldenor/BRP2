@@ -1,7 +1,5 @@
-import React, { Fragment, useState } from 'react'
-import { Button } from 'antd'
+import React, { useState } from 'react'
 import ManageQuestions from './manageQuestions/ManageQuestions'
-import Show from '../showrun/Show'
 import Login from './Login'
 import Statistics from './statistics'
 import HomePage from './HomePage'
@@ -14,17 +12,12 @@ const ManagerLayout = ({ setIsShowStarted }) => {
     const { isLoggedIn } = useSelector((state) => state.auth);
     const user = useSelector((state) => state.auth);
 
-    console.log(user);
-
-    console.log(isLoggedIn)
-    //Redux for login
     const getContent = (cont) => {
         if (cont == "show")
             setIsShowStarted(true)
         else {
             const nav = {
                 "manage": (<ManageQuestions homePage={getContent} />),
-                // "start": (<Show content={getContent} sendMessage={sendMessage} question={question} />),
                 "stats": (<Statistics homePage={getContent} />),
                 "login": (<Login homePage={getContent} />),
                 "home": (<HomePage getContent={getContent} />)
@@ -36,7 +29,6 @@ const ManagerLayout = ({ setIsShowStarted }) => {
 
 
     const loggedIn = () => {
-        console.log("Log");
         if (!isLoggedIn)
             return <Login homePage={getContent} />
         else

@@ -4,21 +4,6 @@ import TimerTime from "./TimerTime"
 
 
 const InfoShowLayout = ({ sendStateOfShow, state }) => {
-    {/* <div>
-                    <div>Video</div>
-                    <Button onClick={showVideo} >Show video</Button>
-                    <div>
-                        <div><Button onClick={() => setIsShowStarted(false)}>Back</Button></div>
-                        <Button
-                            shape="circle"
-                            style={{ fontSize: "50px", width: "350px", height: "350px", backgroundColor: "red", color: "white" }}
-                            onClick={() => sendStateOfShow(showStates.startShow)}
-                        >Start show</Button>
-                    </div>
-                    <div>
-                        <TimerTime />
-                    </div>
-                </div > */}
     return (
         <>
             <header style={{ paddingTop: 20, paddingBottom: 40 }}>

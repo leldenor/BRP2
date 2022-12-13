@@ -1,10 +1,9 @@
-import { Button, Dropdown, Form, Input, Select, Space } from "antd"
-import { DownOutlined } from '@ant-design/icons';
+import { Form, Input, Select } from "antd"
 import _ from 'lodash';
 const { TextArea } = Input;
 
 
-const QuestionForm = ({ question, onSubmit, form }) => {
+const QuestionForm = ({ question, form }) => {
 
     console.log(_.isEmpty(question));
     const valueLong = _.isEmpty(question) ? "" : question.questionLong
@@ -12,9 +11,6 @@ const QuestionForm = ({ question, onSubmit, form }) => {
     const category = _.isEmpty(question) ? "" : question.category
     const answerCategory = _.isEmpty(question) ? "" : question.answerCategory
     const answerSubcategory = _.isEmpty(question) ? "" : question.answerSubcategory
-    console.log(valueLong, valueShort);
-
-
 
     const selectItems = [
         { label: "Immigration", value: 0 },
@@ -82,7 +78,6 @@ const QuestionForm = ({ question, onSubmit, form }) => {
                 ]}
             >
                 <Select
-                    // onChange={categoryCahnge}
                     options={selectItems}
                 />
             </Form.Item>
@@ -98,7 +93,6 @@ const QuestionForm = ({ question, onSubmit, form }) => {
                 ]}
             >
                 <Select
-                    // onChange={categoryCahnge}
                     options={[
                         { value: 0, label: "Pragmatic" },
                         { value: 1, label: "Idealist" }
@@ -117,7 +111,6 @@ const QuestionForm = ({ question, onSubmit, form }) => {
                 ]}
             >
                 <Select
-                    // onChange={categoryCahnge}
                     options={[
                         { value: 0, label: "Conservative" },
                         { value: 1, label: "Progressist" }

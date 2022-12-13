@@ -23,8 +23,7 @@ const App = ({ showState, timer }) => {
   const [isBlank, setIsBlank] = useState(true)
   const [questions, setQuestions] = useState([])
   const [showStateLocal, setShowStateLocal] = useState({ showState: showStates.video })
-  // let list = []
-  console.log(timer);
+
   useEffect(() => {
     if (!_.isEmpty(showState)) {
       setShowStateLocal(showState)
@@ -44,8 +43,6 @@ const App = ({ showState, timer }) => {
         )
       case showStates.showQuestion:
         return (
-          // <div>Show the question full for screen and short for phone {showStateLocal.questionFull}</div>
-          //center the question
           <div>
             <div>{showState.currentQuestion.questionLong}</div>
           </div>
@@ -57,7 +54,6 @@ const App = ({ showState, timer }) => {
             <Timer time={15} />
           </>
         )
-      // return <Timer />
       case showStates.stopVote:
         return (
           <div>

@@ -1,7 +1,6 @@
-import { Button, Checkbox, Form, Input, message } from 'antd';
-import { useEffect } from 'react';
+import { Button, Form, Input, message } from 'antd';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import { login } from '../../slices/auth'
 
@@ -18,24 +17,19 @@ const Login = ({ homePage }) => {
         dispatch(login(user))
             .unwrap()
             .then((res) => {
-                console.log(res);
                 homePage("home")
 
             })
             .catch(() => {
                 message.error("Wrong Username and/or password")
             });
-
-        if (values.username === "admin" && values.password === "167") {
-            console.log('Success:', values);
-
-        } else {
-
-        }
     };
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
+        message.error("Something went wrong")
     };
+
     return (
         <>
             <header>

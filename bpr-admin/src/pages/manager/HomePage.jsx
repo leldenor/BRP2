@@ -5,8 +5,6 @@ import { logout } from '../../slices/auth'
 import { Col, Container, Row } from 'react-bootstrap'
 
 const HomePage = ({ getContent }) => {
-
-
     const dispatch = useDispatch();
 
     const logOut = useCallback(() => {

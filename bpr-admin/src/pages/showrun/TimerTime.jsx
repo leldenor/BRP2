@@ -1,16 +1,7 @@
 import { Button, Statistic } from "antd";
-import { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 
-const { Countdown } = Statistic
-
 const TimerTime = ({ sendTimer }) => {
-    const [timeLeft, setTimeLeft] = useState(-1)
-
-
-    const onTimeChange = (val) => {
-        console.log(val);
-    }
 
     return (
         <>

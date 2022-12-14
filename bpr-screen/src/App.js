@@ -4,7 +4,6 @@ import Info from './Info'
 import _ from 'lodash'
 import './App.css';
 import Timer from './Timer';
-import EndShowStats from './EndShowStats';
 import Start from './Start';
 
 const showStates = {

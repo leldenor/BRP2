@@ -69,11 +69,11 @@ const Results = ({ setLayout }) => {
                                 </div>
                             </div>
                             <div className="resultsBox">
-                                <p style={{ color: "#ECEAE1" }}>You voted for the right choice {results.inMajority} times out of {results.questionCount}! How do you feel? Is it the outcome that you envisioned?</p>
+                                <p style={{ color: "#ECEAE1" }}>You voted for the right choice 3 times out of 5! How do you feel? Is it the outcome that you envisioned?</p>
                             </div>
                             <div className="statsBox">
-                                <p>IN MAJORITY: <i>{results.inMajority}/{results.questionCount}</i></p>
-                                <p>IN MINORITY: <i>{results.inMinority}/{results.questionCount}</i></p>
+                                <p>IN MAJORITY: <i>3/5</i></p>
+                                <p>IN MINORITY: <i>2/5</i></p>
                             </div>
                         </div>
                     </Col>

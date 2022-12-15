@@ -10,7 +10,6 @@ import './ManagerLayout.css'
 const ManagerLayout = ({ setIsShowStarted }) => {
 
     const { isLoggedIn } = useSelector((state) => state.auth);
-    const user = useSelector((state) => state.auth);
 
     const getContent = (cont) => {
         if (cont == "show")
@@ -37,9 +36,6 @@ const ManagerLayout = ({ setIsShowStarted }) => {
 
     const [content, setContent] = useState(loggedIn)
 
-    if (!isLoggedIn) {
-        return <Login />
-    }
     return (
         <>
             {content}

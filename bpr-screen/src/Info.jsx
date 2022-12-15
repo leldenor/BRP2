@@ -18,7 +18,7 @@ const Info = ({ results, label }) => {
 
     const config = {
         appendPadding: 10,
-        data: results,
+        data: data,
         angleField: 'value',
         colorField: 'type',
         radius: 0.9,

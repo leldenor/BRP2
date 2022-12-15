@@ -5,24 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMasksTheater, faMosquito, faMicrophoneAlt, faCat, faDog, faDove, faLandmarkDome, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons'
 import _ from "lodash"
 
-const QuestionOptions = [
-    { label: "Id", value: "id" },
-    { label: "Long Question", value: "questionLong" },
-    { label: "Short Question", value: "questionShort" },
-    { label: "Yes answer count", value: "resultYes" },
-    { label: "No answer count", value: "resultNo" },
-    { label: "Category", value: "category" },
-    { label: "Answer Category", value: "answerCategory" },
-    { label: "Answer Subcategory", value: "answerSubcategory" },
-]
-const UsersOptions = [
-    { label: "Id", value: "id" },
-    { label: "Username", value: "username" },
-    { label: "Avatar", value: "avatar" },
-    { label: "Voting Results", value: "votingResults" },
-    { label: "Outcome", value: "outcome" },
-]
-
 const Statistics = ({ homePage, sendMessage }) => {
     const [showFile, setShowFile] = useState({})
     const [dateOptions, setDateOptions] = useState([])
